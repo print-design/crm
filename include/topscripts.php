@@ -360,7 +360,6 @@ if(null !== filter_input(INPUT_POST, 'login_submit')) {
             $role = ROLE_NAMES[$row['role_id']];
             $role_local = ROLE_LOCAL_NAMES[$row['role_id']];
             $email = $row['email'];
-            $twofactor = ROLE_TWOFACTOR[$row['role_id']];
         }
         
         if(empty($user_id) || empty($username)) {

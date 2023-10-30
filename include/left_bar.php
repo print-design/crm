@@ -10,13 +10,13 @@ if($count > 1) {
     $file = $substrings[$count - 1];
 }
 
-$marketing_class = '';
+$crm_class = '';
 $admin_class = '';
 
-if($folder == "marketing") {
-    $marketing_class = " active";
+if($folder == "crm") {
+    $crm_class = " active";
 }
-elseif($folder == "user" || $folder == "supplier" || $folder == 'admin') {
+elseif($folder == "user" || $folder == 'admin') {
     $admin_class = " active";
 }
 
@@ -25,9 +25,9 @@ elseif($folder == "user" || $folder == "supplier" || $folder == 'admin') {
     <a href="<?=APPLICATION ?>/" class="left_bar_item logo" title="На главную" data-toggle="tooltip" data-placement="right"><img src="<?=APPLICATION ?>/images/logo.svg" /></a>
     <?php
     // Маркетинг
-    if(IsInRole(array(ROLE_NAMES[ROLE_MANAGER], ROLE_NAMES[ROLE_MANAGER_SENIOR]))):
+    if(IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER], ROLE_NAMES[ROLE_MANAGER_SENIOR]))):
     ?>
-    <a href="<?=APPLICATION ?>/marketing/" class="left_bar_item<?=$marketing_class ?>" title="Маркетинг" data-toggle="tooltip" data-placement="right"><img src="<?=APPLICATION ?>/images/nav_grafik.svg" /></a>
+    <a href="<?=APPLICATION ?>/crm/" class="left_bar_item<?=$crm_class ?>" title="Маркетинг" data-toggle="tooltip" data-placement="right"><img src="<?=APPLICATION ?>/images/nav_phone.svg" style="height: 20px; width: auto;" /></a>
     <?php
     endif;
     // Админка
