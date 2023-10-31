@@ -8,6 +8,17 @@ const ROLES = array(ROLE_ADMIN, ROLE_MANAGER, ROLE_MANAGER_SENIOR);
 const ROLE_NAMES = array(ROLE_ADMIN => "admin", ROLE_MANAGER => "manager", ROLE_MANAGER_SENIOR => "manager-senior");
 const ROLE_LOCAL_NAMES = array(ROLE_ADMIN => "Администратор", ROLE_MANAGER => "Менеджер", ROLE_MANAGER_SENIOR => "Старший менеджер");
 
+// Результаты звонка
+const RESULT_NO_INTEREST = -1;
+const RESULT_OUTCOME = 0;
+const RESULT_SEND_OFFER_PRICE = 1;
+const RESULT_SEND_OFFER_CALCULATION = 2;
+const RESULT_OTHER = 3;
+const RESULT_ORDER = 4;
+
+const RESULTS = array(RESULT_NO_INTEREST, RESULT_NO_INTEREST, RESULT_SEND_OFFER_PRICE, RESULT_SEND_OFFER_CALCULATION, RESULT_OTHER, RESULT_ORDER);
+const RESULT_NAMES = array(RESULT_NO_INTEREST => "Не заинтересовались", RESULT_OUTCOME => "Исходящие звонки", RESULT_SEND_OFFER_PRICE => "Пришлите предложение, прайс", RESULT_SEND_OFFER_CALCULATION => "Пришлите предложение с просчитанным тирадом", RESULT_OTHER => "Другое", RESULT_ORDER => "Заказ");
+
 // Валюты
 const CURRENCY_RUB = "rub";
 const CURRENCY_USD = "usd";
