@@ -30,6 +30,7 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                 <div class="d-flex justify-content-end">
                     <div class="mr-2">
                         <form class="form-inline" method="get">
+                            <input type="hidden" name="user" value="<?= filter_input(INPUT_GET, 'user') ?>" />
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Поиск" id="find" name="find" value="<?= isset($_GET['find']) ? $_GET['find'] : '' ?>" />
                                 <div class="input-group-append">
@@ -40,6 +41,7 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                     </div>
                     <div>
                         <form class="form-inline" method="get">
+                            <input type="hidden" name="find" value="<?= filter_input(INPUT_GET, 'find') ?>" />
                             <select id="user" name="user" class="form-control" onchange="this.form.submit();">
                                 <option value="">...</option>
                                 <?php
@@ -49,22 +51,6 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                                 while($row = $fetcher->Fetch()):
                                 $selected = '';
                                 if(filter_input(INPUT_GET, 'user') == $row['id']) $selected = " selected='selected'";
-                                /*$conn = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME);
-                                $sql = "select id, last_name, first_name, middle_name from manager order by last_name";
-                                    
-                                if($conn->connect_error) {
-                                    die('Ошибка соединения: ' . $conn->connect_error);
-                                }
-                                    
-                                $conn->query('set names utf8');
-                                $result = $conn->query($sql);
-                                if ($result->num_rows > 0) {
-                                    while($row = $result->fetch_assoc()) {
-                                        $selected = isset($_GET['manager']) && $_GET['manager'] == $row['id'] ? " selected='selected'" : '';
-                                        echo '<option value='.$row['id'].$selected.'>'.$row['last_name'].' '.(mb_strlen($row['first_name']) > 1 ? mb_substr($row['first_name'], 0, 1).'.' : $row['first_name']).' '.(mb_strlen($row['first_name']) > 1 ? mb_substr($row['middle_name'], 0, 1).'.' : $row['middle_name']).'</option>';
-                                    }
-                                }
-                                $conn->close();*/
                                 ?>
                                 <option value="<?=$row['id'] ?>"<?=$selected ?>><?=$row['last_name'].' '.$row['first_name'] ?></option>
                                 <?php
@@ -75,6 +61,78 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                     </div>
                 </div>
             </div>
+            <?php
+            $find = addslashes(filter_input(INPUT_GET, 'find'));
+            $user = filter_input(INPUT_GET, 'user');
+            
+            include '../include/pager_top.php';
+            
+            $sql = "select count(c.id) from customer c inner join user u on c.manager_id = u.id ";
+            if(!empty($find) || !empty($user)) {
+                $sql .= "where ";
+            }
+            if(!empty($find)) {
+                $sql .= "c.name like '%$find%' ";
+            }
+            if(!empty($find) && !empty($user)) {
+                $sql .= "and ";
+            }
+            if(!empty($user)) {
+                $sql .= "c.manager_id = $user";
+            }
+            $fetcher = new Fetcher($sql);
+            
+            if($row = $fetcher->Fetch()) {
+                $pager_total_count = $row[0];
+            }
+            ?>
+            <table class="table table-hover">
+                <thead>
+                    <tr style="border-top: 1px solid #dee2e6; border-left: 1px solid #dee2e6; border-right: 1px solid #dee2e6;">
+                        <th>Наименование</th>
+                        <th>Основное контактное лицо</th>
+                        <th>Телефон</th>
+                        <th>E-Mail</th>
+                        <th>Менеджер</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $sql = "select c.name, c.person, c.phone, c.extension, c.email, u.last_name, u.first_name "
+                            . "from customer c inner join user u on c.manager_id = u.id ";
+                    
+                    if(!empty($find) || !empty($user)) {
+                        $sql .= "where ";
+                    }
+                    if(!empty($find)) {
+                        $sql .= "c.name like '%$find%' ";
+                    }
+                    if(!empty($find) && !empty($user)) {
+                        $sql .= "and ";
+                    }
+                    if(!empty($user)) {
+                        $sql .= "c.manager_id = $user ";
+                    }
+                    $sql .= "order by c.name limit $pager_skip, $pager_take";
+                    $fetcher = new Fetcher($sql);
+                    
+                    while($row = $fetcher->Fetch()):
+                    ?>
+                    <tr style="border-left: 1px solid #dee2e6; border-right: 1px solid #dee2e6;">
+                        <td><?=$row['name'] ?></td>
+                        <td><?=$row['person'] ?></td>
+                        <td><?=$row['phone'].(empty($row['extension']) ? '' : ' (доб. '.$row['extension'].')') ?></td>
+                        <td><?=$row['email'] ?></td>
+                        <td><?=$row['last_name'].' '.$row['first_name'] ?></td>
+                    </tr>
+                    <?php
+                    endwhile;
+                    ?>
+                </tbody>
+            </table>
+            <?php
+            include '../include/pager_bottom.php';
+            ?>
         </div>
         <?php
         include '../include/footer.php';
