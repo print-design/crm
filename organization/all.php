@@ -32,7 +32,7 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                         <form class="form-inline" method="get">
                             <input type="hidden" name="user" value="<?= filter_input(INPUT_GET, 'user') ?>" />
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Поиск" id="find" name="find" value="<?= isset($_GET['find']) ? $_GET['find'] : '' ?>" />
+                                <input type="text" class="form-control" placeholder="Поиск" id="find" name="find" value="<?= filter_input(INPUT_GET, 'find') ?>" />
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
                                 </div>
@@ -94,11 +94,12 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                         <th>Телефон</th>
                         <th>E-Mail</th>
                         <th>Менеджер</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "select c.name, c.person, c.phone, c.extension, c.email, u.last_name, u.first_name "
+                    $sql = "select c.id, c.name, c.person, c.phone, c.extension, c.email, u.last_name, u.first_name "
                             . "from customer c inner join user u on c.manager_id = u.id ";
                     
                     if(!empty($find) || !empty($user)) {
@@ -124,6 +125,7 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                         <td><?=$row['phone'].(empty($row['extension']) ? '' : ' (доб. '.$row['extension'].')') ?></td>
                         <td><?=$row['email'] ?></td>
                         <td><?=$row['last_name'].' '.$row['first_name'] ?></td>
+                        <td><a href="details.php?id=<?=$row['id'] ?>"><img src="../images/icons/vertical-dots.svg" /></a></td>
                     </tr>
                     <?php
                     endwhile;
