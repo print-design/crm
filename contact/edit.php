@@ -13,7 +13,6 @@ if(empty($id)) {
     header('Location: '.APPLICATION.'/customer/');
 }
 
-
 // Валидация формы
 $form_valid = true;
 $error_message = '';
@@ -43,7 +42,7 @@ if(filter_input(INPUT_POST, 'contact_edit_submit') !== null) {
             if($result_id == RESULT_ORDER) {
                 $sql = "select count(id) from zakaz where contact_id = $id";
                 $fetcher = new Fetcher($sql);
-                if($row = $fetcher->Fetch()) {
+                if($row = $fetcher->Fetch()) { echo $row[0];
                     if($row[0] == 0) {
                         $sql = "insert into zakaz (contact_id) values ($id)";
                         $executer = new Executer($sql);
@@ -51,6 +50,7 @@ if(filter_input(INPUT_POST, 'contact_edit_submit') !== null) {
                         $order_id = $executer->insert_id;
                         if(!empty($order_id)) {
                             header('Location: '.APPLICATION.'/order/edit.php?id='.$order_id);
+                            exit();
                         }
                     }
                 }
@@ -161,6 +161,7 @@ if($row = $fetcher->Fetch()) {
                                     <option value="<?=$item ?>"<?=$selected ?>><?=RESULT_NAMES[$item] ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                                <div class="invalid-feedback">Результат контакта обязательно</div>
                             </div>
                             <div class="form-group">
                                 <label for="next_date">Дата следующего контакта</label>

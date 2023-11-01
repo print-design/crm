@@ -48,6 +48,7 @@ if(filter_input(INPUT_POST, 'contact_create_submit') !== null) {
                 $order_id = $executer->insert_id;
                 if(!empty($order_id)) {
                     header('Location: '.APPLICATION.'/order/edit.php?id='.$order_id);
+                    exit();
                 }
             }
             
@@ -140,6 +141,7 @@ if($row = $fetcher->Fetch()) {
                                     <option value="<?=$item ?>"<?=$selected ?>><?=RESULT_NAMES[$item] ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                                <div class="invalid-feedback">Результат контакта обязательно</div>
                             </div>
                             <div class="form-group">
                                 <label for="next_date">Дата следующего контакта</label>
