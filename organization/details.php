@@ -112,7 +112,7 @@ if($row = $fetcher->Fetch()) {
                         </tr>
                     </table>
                     <div class="d-flex justify-content-between">
-                        <div><h1>Контактные лица</h1></div>
+                        <div><h2>Контактные лица</h2></div>
                         <div><a class="btn btn-outline-dark" href="<?=APPLICATION ?>/person/edit.php?id=<?=$id ?>" style="width: 160px;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Добавить</a></div>
                     </div>
                     <table class="table table-bordered">
@@ -133,12 +133,12 @@ if($row = $fetcher->Fetch()) {
                             while($row = $fetcher->Fetch()):
                             ?>
                             <tr>
-                                <td><a href="<?=APPLICATION.'/contact/create.php?person='.$row['id'] ?>" title="Новый контакт <?=$row['name'] ?>" class="btn btn-outline-dark btn-sm"><i class="fas fa-phone"></i></a></td>
+                                <td><a href="<?=APPLICATION.'/contact/create.php?person='.$row['id'] ?>" title="Новый контакт <?=$row['name'] ?>" class="btn btn-outline-dark"><i class="fas fa-phone"></i></a></td>
                                 <td><?=$row['name'] ?></td>
                                 <td><?=$row['position'] ?></td>
                                 <td><?=$row['phone'].(empty($row['extension']) ? '' : " <span class='text-nowrap'>(доп. ".$row['extension'].")</span>") ?></td>
                                 <td><?=$row['email'] ?></td>
-                                <td><a href="<?=APPLICATION ?>/person/edit.php?id=<?=$row['id'] ?>" title="Редактировать" class="btn btn-outline-dark btn-sm"><i class="fas fa-edit"></i></a></td>
+                                <td><a href="<?=APPLICATION ?>/person/edit.php?id=<?=$row['id'] ?>" title="Редактировать" class="btn btn-outline-dark"><i class="fas fa-edit"></i></a></td>
                             </tr>
                             <?php
                             endwhile;
@@ -176,11 +176,11 @@ if($row = $fetcher->Fetch()) {
                             ?>
                             <tr>
                                 <td><?=$row['date'] ?></td>
-                                <td><?=$row['last_name'].' '.mb_substr($row['first_name'], 0, 1).'.' ?></td>
+                                <td class="text-nowrap"><?=$row['last_name'].' '.mb_substr($row['first_name'], 0, 1).'.' ?></td>
                                 <td><?=$row['name'] ?></td>
                                 <td><?=$row['position'] ?></td>
-                                <td><?=$row['result'] ?></td>
-                                <td><?=($row['efficient'] == 1 ? '&#x2713;' : '') ?></td>
+                                <td><?=RESULT_NAMES[$row['result_id']] ?></td>
+                                <td><?=(RESULT_EFFECTIVE[$row['result_id']] == 1 ? '&#x2713;' : '') ?></td>
                                 <td><?=$row['next_date'] ?></td>
                                 <td><?=$row['comment'] ?></td>
                                 <td><a href="<?=APPLICATION ?>/contact/edit.php?id=<?=$row['id'] ?>" class="btn btn-outline-dark"><i class="fas fa-edit"></i></a></td>
@@ -191,7 +191,11 @@ if($row = $fetcher->Fetch()) {
                         </tbody>
                     </table>
                 </div>
-            </div>            
+            </div>
+            <div class="d-flex justify-content-between">
+                <div><h2>Перспективное планирование</h2></div>
+                <div><a class="btn btn-outline-dark" href="<?=APPLICATION ?>/perspective/create.php?id=<?=$id ?>" style="width: 160px;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Добавить</a></div>
+            </div>
         </div>
         <?php
         include '../include/footer.php';
