@@ -186,7 +186,7 @@ if($row = $fetcher->Fetch()) {
                                 <td><?=$row['position'] ?></td>
                                 <td><?=RESULT_NAMES[$row['result_id']] ?></td>
                                 <td><?=(RESULT_EFFECTIVE[$row['result_id']] == 1 ? '&#x2713;' : '') ?></td>
-                                <td><?=$row['next_date'] ?></td>
+                                <td><?= $row['next_date'] == '00.00.0000' ? '' : $row['next_date'] ?></td>
                                 <td><?=$row['comment'] ?></td>
                                 <td><a href="<?=APPLICATION ?>/contact/edit.php?id=<?=$row['id'] ?>" class="btn btn-outline-dark"><i class="fas fa-edit"></i></a></td>
                             </tr>
