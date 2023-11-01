@@ -138,7 +138,7 @@ if($row = $fetcher->Fetch()) {
                             while($row = $fetcher->Fetch()):
                             ?>
                             <tr>
-                                <td><a href="<?=APPLICATION.'/contact/create.php?person='.$row['id'] ?>" title="Новый контакт <?=$row['name'] ?>" class="btn btn-outline-dark"><i class="fas fa-phone"></i></a></td>
+                                <td><a href="<?=APPLICATION.'/contact/create.php?id='.$row['id'] ?>" title="Новый контакт <?=$row['name'] ?>" class="btn btn-outline-dark"><i class="fas fa-phone"></i></a></td>
                                 <td><?=$row['name'] ?></td>
                                 <td><?=$row['position'] ?></td>
                                 <td><?=$row['phone'].(empty($row['extension']) ? '' : " <span class='text-nowrap'>(доп. ".$row['extension'].")</span>") ?></td>

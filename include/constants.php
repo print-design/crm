@@ -9,12 +9,12 @@ const ROLE_NAMES = array(ROLE_ADMIN => "admin", ROLE_MANAGER => "manager", ROLE_
 const ROLE_LOCAL_NAMES = array(ROLE_ADMIN => "Администратор", ROLE_MANAGER => "Менеджер", ROLE_MANAGER_SENIOR => "Старший менеджер");
 
 // Результаты звонка
-const RESULT_NO_INTEREST = -1;
-const RESULT_OUTCOME = 0;
-const RESULT_SEND_OFFER_PRICE = 1;
-const RESULT_SEND_OFFER_CALCULATION = 2;
-const RESULT_OTHER = 3;
-const RESULT_ORDER = 4;
+const RESULT_NO_INTEREST = 1;
+const RESULT_OUTCOME = 2;
+const RESULT_SEND_OFFER_PRICE = 3;
+const RESULT_SEND_OFFER_CALCULATION = 4;
+const RESULT_OTHER = 5;
+const RESULT_ORDER = 6;
 
 const RESULTS = array(RESULT_NO_INTEREST, RESULT_OUTCOME, RESULT_SEND_OFFER_PRICE, RESULT_SEND_OFFER_CALCULATION, RESULT_OTHER, RESULT_ORDER);
 const RESULT_NAMES = array(RESULT_NO_INTEREST => "Не заинтересовались", RESULT_OUTCOME => "Исходящие звонки", RESULT_SEND_OFFER_PRICE => "Пришлите предложение, прайс", RESULT_SEND_OFFER_CALCULATION => "Пришлите предложение с просчитанным тирадом", RESULT_OTHER => "Другое", RESULT_ORDER => "Заказ");
