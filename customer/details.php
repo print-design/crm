@@ -23,10 +23,10 @@ if(IsInRole(ROLE_NAMES[ROLE_ADMIN])) {
 }
 
 // Удаление перспективного планирования
-if(filter_input(INPUT_POST, 'delete_perspective_planning_submit') !== null) {
+if(filter_input(INPUT_POST, 'delete_perspective_submit') !== null) {
     $id = filter_input(INPUT_POST, 'id');
     
-    $sql = "delete from perspective_planning where id = $id";
+    $sql = "delete from perspective where id = $id";
     $executer = new Executer($sql);
     $error_message = $executer->error;
     
@@ -39,7 +39,7 @@ if(filter_input(INPUT_POST, 'delete_perspective_planning_submit') !== null) {
 $id = filter_input(INPUT_GET, 'id');
 
 if(empty($id)) {
-    header('Location: '.APPLICATION.'/organization/');
+    header('Location: '.APPLICATION.'/customer/');
 }
 
 // Получение объекта
@@ -72,6 +72,11 @@ if($row = $fetcher->Fetch()) {
         <?php
         include '../include/head.php';
         ?>
+        <style>
+            table.table tr th {
+                font-weight: bold;
+            }
+        </style>
     </head>
     <body>
         <?php
@@ -128,7 +133,7 @@ if($row = $fetcher->Fetch()) {
                         </thead>
                         <tbody>
                             <?php
-                            $sql = "select id, name, position, phone, extension, email from person where organization_id = $id";
+                            $sql = "select id, name, position, phone, extension, email from person where customer_id = $id";
                             $fetcher = new Fetcher($sql);
                             while($row = $fetcher->Fetch()):
                             ?>
@@ -169,7 +174,7 @@ if($row = $fetcher->Fetch()) {
                                     . "from person p "
                                     . "inner join contact c on c.person_id = p.id "
                                     . "inner join user u on c.manager_id = u.id "
-                                    . "where p.organization_id=".$_GET['id']." "
+                                    . "where p.customer_id=".$_GET['id']." "
                                     . "order by c.id desc";
                             $fetcher = new Fetcher($sql);
                             while($row = $fetcher->Fetch()):
@@ -196,6 +201,62 @@ if($row = $fetcher->Fetch()) {
                 <div><h2>Перспективное планирование</h2></div>
                 <div><a class="btn btn-outline-dark" href="<?=APPLICATION ?>/perspective/create.php?id=<?=$id ?>" style="width: 160px;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Добавить</a></div>
             </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Дата&nbsp;&ndash;</th>
+                        <th>Дата</th>
+                        <th>Дата&ndash;+</th>
+                        <th>Затраты</th>
+                        <th>Тип плёнки</th>
+                        <th>Толщина плёнки</th>
+                        <th>Ширина плёнки</th>
+                        <th>Длина плёнки</th>
+                        <th>Вес плёнки</th>
+                        <th>Цена плёнки</th>
+                        <th>Вероятность</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $sql = "select p.id, p.date, date_format(p.date, '%d.%m.%Y') fdate, p.date_minus, "
+                            . "date_format(p.date_minus, '%d.%m.%Y') fdate_minus, p.date_plus, date_format(p.date_plus, '%d.%m.%Y') fdate_plus, "
+                            . "p.expenses, f.name film, fv.thickness, p.film_width, p.film_length, p.film_weight, p.film_price, p.film_currency, p.probability "
+                            . "from perspective p "
+                            . "inner join film_variation fv on p.film_variation_id = fv.id "
+                            . "inner join film f on fv.film_id = f.id "
+                            . "where p.customer_id = $id "
+                            . "order by p.date desc";
+                    $fetcher = new Fetcher($sql);
+                    while($row = $fetcher->Fetch()):
+                    ?>
+                    <tr>
+                        <td><?=$row['fdate_minus'] ?></td>
+                        <td><?=$row['fdate'] ?></td>
+                        <td><?=$row['fdate_plus'] ?></td>
+                        <td><?=$row['expenses'] ?></td>
+                        <td><?=$row['film'] ?></td>
+                        <td><?=$row['thickness'] ?></td>
+                        <td><?=$row['film_width'] ?></td>
+                        <td><?=$row['film_length'] ?></td>
+                        <td><?=$row['film_weight'] ?></td>
+                        <td><?=$row['film_price'].' '.CURRENCY_SHORTNAMES[$row['film_currency']] ?></td>
+                        <td><?=$row['probability'] ?></td>
+                        <td><a href="<?=APPLICATION ?>/perspective/edit.php?id=<?=$row['id'] ?>" class="btn btn-outline-dark"><i class="fas fa-edit"></i></a></td>
+                        <td>
+                            <form>
+                                <input type="hidden" name="id" value="<?=$row['id'] ?>" />
+                                <button type="submit" name="delete_perspective_submit" class="btn btn-outline-dark" onclick="javascript: return confirm('Действительно удалить?');"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    <?php
+                    endwhile;
+                    ?>
+                </tbody>
+            </table>
         </div>
         <?php
         include '../include/footer.php';

@@ -18,10 +18,10 @@ $contact_class = '';
 $planned_class = '';
 $order_class = '';
 
-if($folder == 'organization' && $file == 'all.php') {
+if($folder == 'customer' && $file == 'all.php') {
     $all_class = ' disabled';
 }
-elseif($folder == 'organization') {
+elseif($folder == 'customer') {
     $my_class = ' disabled';
 }
 elseif($folder == 'contact') {
@@ -38,10 +38,10 @@ elseif($folder == 'order') {
     <nav class="navbar navbar-expand-sm justify-content-end">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link<?=$my_class ?>" href="<?=APPLICATION ?>/organization/">Мои предприятия</a>
+                <a class="nav-link<?=$my_class ?>" href="<?=APPLICATION ?>/customer/">Мои предприятия</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link<?=$all_class ?>" href="<?=APPLICATION ?>/organization/all.php">Все предприятия</a>
+                <a class="nav-link<?=$all_class ?>" href="<?=APPLICATION ?>/customer/all.php">Все предприятия</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link<?=$contact_class ?>" href="<?=APPLICATION ?>/contact/">Первич. действ. контакты</a>

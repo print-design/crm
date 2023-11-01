@@ -14,7 +14,7 @@ $name_valid = '';
 $email_valid = '';
 
 // Обработка отправки формы
-if(null !== filter_input(INPUT_POST, 'organization_create_submit')) {
+if(null !== filter_input(INPUT_POST, 'customer_create_submit')) {
     $name = filter_input(INPUT_POST, 'name');
     
     if(empty($name)) {
@@ -79,7 +79,7 @@ if(null !== filter_input(INPUT_POST, 'organization_create_submit')) {
                echo "<div class='alert alert-danger'>$error_message</div>";
             }
             ?>
-            <a class="btn btn-outline-dark backlink" href="<?=APPLICATION ?>/organization/">Назад</a>
+            <a class="btn btn-outline-dark backlink" href="<?=APPLICATION ?>/customer/">Назад</a>
             <div class="row">
                 <div class="col-5">
                     <h1>Новое предприятие</h1>
@@ -110,7 +110,7 @@ if(null !== filter_input(INPUT_POST, 'organization_create_submit')) {
                             <div class="invalid-feedback">Неправильный формат E-Mail</div>
                         </div>
                         <div class="pt-4">
-                            <button type="submit" class="btn btn-dark w-25" id="organization_create_submit" name="organization_create_submit">Создать</button>
+                            <button type="submit" class="btn btn-dark w-25" id="customer_create_submit" name="customer_create_submit">Создать</button>
                         </div>
                     </form>
                 </div>

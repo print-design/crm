@@ -13,7 +13,7 @@ if($count > 1) {
 $marketing_class = '';
 $admin_class = '';
 
-if($folder == "organization" || $folder == "contact" || $folder == "planned" || $folder == "order") {
+if($folder == "customer" || $folder == "contact" || $folder == "planned" || $folder == "order") {
     $marketing_class = " active";
 }
 elseif($folder == "user" || $folder == 'admin') {
@@ -27,7 +27,7 @@ elseif($folder == "user" || $folder == 'admin') {
     // Маркетинг
     if(IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER], ROLE_NAMES[ROLE_MANAGER_SENIOR]))):
     ?>
-    <a href="<?=APPLICATION ?>/organization/" class="left_bar_item<?=$marketing_class ?>" title="Маркетинг" data-toggle="tooltip" data-placement="right"><img src="<?=APPLICATION ?>/images/nav_phone.svg" style="height: 20px; width: auto;" /></a>
+    <a href="<?=APPLICATION ?>/customer/" class="left_bar_item<?=$marketing_class ?>" title="Маркетинг" data-toggle="tooltip" data-placement="right"><img src="<?=APPLICATION ?>/images/nav_phone.svg" style="height: 20px; width: auto;" /></a>
     <?php
     endif;
     // Админка

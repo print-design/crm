@@ -25,6 +25,9 @@ const CURRENCY_RUB = "rub";
 const CURRENCY_USD = "usd";
 const CURRENCY_EURO = "euro";
 
+const CURRENCIES = array(CURRENCY_RUB, CURRENCY_USD, CURRENCY_EURO);
+const CURRENCY_SHORTNAMES = array(CURRENCY_RUB => "руб.", CURRENCY_USD => "USD", CURRENCY_EURO => "евро");
+
 // Печатные машины
 const PRINTER_ZBS_1 = 1;
 const PRINTER_ZBS_2 = 2;
