@@ -226,24 +226,24 @@ if($row = $fetcher->Fetch()) {
                             . "p.expenses, f.name film, fv.thickness, p.film_width, p.film_length, p.film_weight, p.film_price, p.film_currency, p.probability "
                             . "from perspective p "
                             . "inner join film_variation fv on p.film_variation_id = fv.id "
-                            . "inner join film f on fv.film_id = f.id "
+                            . "inner join film f on p.film_id = f.id "
                             . "where p.customer_id = $id "
                             . "order by p.date desc";
                     $fetcher = new Fetcher($sql);
                     while($row = $fetcher->Fetch()):
                     ?>
                     <tr>
-                        <td><?=$row['fdate_minus'] ?></td>
-                        <td><?=$row['fdate'] ?></td>
-                        <td><?=$row['fdate_plus'] ?></td>
-                        <td><?=$row['expenses'] ?></td>
-                        <td><?=$row['film'] ?></td>
-                        <td><?=$row['thickness'] ?></td>
-                        <td><?=$row['film_width'] ?></td>
-                        <td><?=$row['film_length'] ?></td>
-                        <td><?=$row['film_weight'] ?></td>
-                        <td><?=$row['film_price'].' '.CURRENCY_SHORTNAMES[$row['film_currency']] ?></td>
-                        <td><?=$row['probability'] ?></td>
+                        <td><?= $row['fdate_minus'] == '00.00.0000' ? '' : $row['fdate_minus'] ?></td>
+                        <td><?= $row['fdate'] == '00.00.0000' ? '' : $row['fdate'] ?></td>
+                        <td><?= $row['fdate_plus'] == '00.00.0000' ? '' : $row['fdate_plus'] ?></td>
+                        <td><?= empty($row['expenses']) ? '' : $row['expenses'] ?></td>
+                        <td><?= empty($row['film']) ? '' : $row['film'] ?></td>
+                        <td><?= empty($row['thickness']) ? '' : $row['thickness'] ?></td>
+                        <td><?= empty($row['film_width']) ? '' : $row['film_width'] ?></td>
+                        <td><?= empty($row['film_length']) ? '' : $row['film_length'] ?></td>
+                        <td><?= empty($row['film_weight']) ? '' : $row['film_weight'] ?></td>
+                        <td><?= empty($row['film_price']) ? '' : $row['film_price'].' '.CURRENCY_SHORTNAMES[$row['film_currency']] ?></td>
+                        <td><?= empty($row['probability']) ? '' : $row['probability'] ?></td>
                         <td><a href="<?=APPLICATION ?>/perspective/edit.php?id=<?=$row['id'] ?>" class="btn btn-outline-dark"><i class="fas fa-edit"></i></a></td>
                         <td>
                             <form>
