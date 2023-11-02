@@ -73,7 +73,7 @@ $user = filter_input(INPUT_GET, 'user');
                 $pager_total_count = $row[0];
             }
             ?>
-            <table class="table table-striped">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Дата</th>
