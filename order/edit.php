@@ -171,7 +171,7 @@ if($row = $fetcher->Fetch()) {
                             <div class="col-4"></div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="price">Цена (руб.)</label>
+                                    <label for="price">Цена (1 шт, руб.)</label>
                                     <input type="text" name="price" class="form-control int-only<?=$price_valid ?>" value="<?= empty($price) ? '' : $price ?>" autocomplete="off" required="required" />
                                     <div class="invalid-feedback">Цена обязательно</div>
                                 </div>

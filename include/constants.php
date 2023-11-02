@@ -3,10 +3,11 @@
 const ROLE_ADMIN = 1;
 const ROLE_MANAGER = 4;
 const ROLE_MANAGER_SENIOR = 11;
+const ROLE_ACCOUNTANT = 12;
 
-const ROLES = array(ROLE_ADMIN, ROLE_MANAGER, ROLE_MANAGER_SENIOR);
-const ROLE_NAMES = array(ROLE_ADMIN => "admin", ROLE_MANAGER => "manager", ROLE_MANAGER_SENIOR => "manager-senior");
-const ROLE_LOCAL_NAMES = array(ROLE_ADMIN => "Администратор", ROLE_MANAGER => "Менеджер", ROLE_MANAGER_SENIOR => "Старший менеджер");
+const ROLES = array(ROLE_ADMIN, ROLE_MANAGER, ROLE_MANAGER_SENIOR, ROLE_ACCOUNTANT);
+const ROLE_NAMES = array(ROLE_ADMIN => "admin", ROLE_MANAGER => "manager", ROLE_MANAGER_SENIOR => "manager-senior", ROLE_ACCOUNTANT => "accountant");
+const ROLE_LOCAL_NAMES = array(ROLE_ADMIN => "Администратор", ROLE_MANAGER => "Менеджер", ROLE_MANAGER_SENIOR => "Старший менеджер", ROLE_ACCOUNTANT => "Бухгалтер");
 
 // Результаты звонка
 const RESULT_NO_INTEREST = 1;
