@@ -48,7 +48,6 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                         <th>Дата закл. дог.</th>
                         <th>Дата выст. сч.</th>
                         <th></th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,8 +79,7 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                         <td><?=$row['shipment_date'] ?></td>
                         <td><?=$row['contract_date'] ?></td>
                         <td><?=$row['bill_date'] ?></td>
-                        <td><a href="details.php?id=<?=$row['id'] ?>"><i class="fas fa-info-circle"></i></a></td>
-                        <td><a href="edit.php?id=<?=$row['id'] ?>"><i class="fas fa-edit"></i></a></td>
+                        <td><a href="details.php?id=<?=$row['id'] ?>"><img src="../images/icons/vertical-dots.svg" /></a></td>
                     </tr>
                     <?php endwhile; ?>
                 </tbody>
