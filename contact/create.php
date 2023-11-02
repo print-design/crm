@@ -150,7 +150,7 @@ if($row = $fetcher->Fetch()) {
                         </div>
                         <div class="form-group">
                             <label for="comment">Комментарий</label>
-                            <textarea name="comment" class="form-control" rows="5"><?= filter_input(INPUT_POST, 'comment') ?></textarea>
+                            <textarea name="comment" class="form-control" rows="5"><?= htmlentities(filter_input(INPUT_POST, 'comment')) ?></textarea>
                         </div>
                         <div class="pt-4">
                             <button type="submit" class="btn btn-dark w-25" id="customer_create_submit" name="contact_create_submit">Создать</button>

@@ -47,7 +47,7 @@ if(null !== filter_input(INPUT_POST, 'customer_edit_submit')) {
         $extension = addslashes($extension);
         $email = addslashes($email);
         
-        $sql = "select count(id) from customer where name='$name'";
+        $sql = "select count(id) from customer where name='$name' and id <> $id";
         $fetcher = new Fetcher($sql);
         if($row = $fetcher->Fetch()) {
             if($row[0] != 0) {
@@ -72,27 +72,27 @@ $sql = "select name, person, phone, extension, email from customer where id = $i
 $fetcher = new Fetcher($sql);
 $row = $fetcher->Fetch();
 
-$name = filter_input(INPUT_POST, 'name');
+$name = htmlentities(filter_input(INPUT_POST, 'name'));
 if(empty($name)) {
     $name = htmlentities($row['name']);
 }
 
-$person = filter_input(INPUT_POST, 'person');
+$person = htmlentities(filter_input(INPUT_POST, 'person'));
 if(empty($person)) {
     $person = htmlentities($row['person']);
 }
 
-$phone = filter_input(INPUT_POST, 'phone');
+$phone = htmlentities(filter_input(INPUT_POST, 'phone'));
 if(empty($phone)) {
     $phone = htmlentities($row['phone']);
 }
 
-$extension = filter_input(INPUT_POST, 'extension');
+$extension = htmlentities(filter_input(INPUT_POST, 'extension'));
 if(empty($extension)) {
     $extension = htmlentities($row['extension']);
 }
 
-$email = filter_input(INPUT_POST, 'email');
+$email = htmlentities(filter_input(INPUT_POST, 'email'));
 if(empty($email)) {
     $email = htmlentities($row['email']);
 }
@@ -132,7 +132,7 @@ if(empty($email)) {
                         <div class="d-flex justify-content-between">
                             <div class="form-group w-75 pr-3">
                                 <label for="phone">Телефон</label>
-                                <input type="tel" name="phone" class="form-control" value="<?= $phone ?>" autocomplete="off" />
+                                <input type="text" id="phone" name="phone" class="form-control" value="<?= $phone ?>" autocomplete="off" />
                             </div>
                             <div class="form-group w-25">
                                 <label for="extension">Расширение</label>
@@ -151,5 +151,8 @@ if(empty($email)) {
                 </div>
             </div>
         </div>
+        <?php
+        include '../include/footer.php';
+        ?>
     </body>
 </html>

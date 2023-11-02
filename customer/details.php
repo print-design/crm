@@ -118,7 +118,7 @@ if($row = $fetcher->Fetch()) {
                     </table>
                     <div class="d-flex justify-content-between">
                         <div><h2>Контактные лица</h2></div>
-                        <div><a class="btn btn-outline-dark" href="<?=APPLICATION ?>/person/edit.php?id=<?=$id ?>" style="width: 160px;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Добавить</a></div>
+                        <div><a class="btn btn-outline-dark" href="<?=APPLICATION ?>/person/create.php?id=<?=$id ?>" style="width: 160px;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Добавить</a></div>
                     </div>
                     <table class="table table-bordered">
                         <thead>

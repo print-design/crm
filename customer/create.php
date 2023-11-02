@@ -87,26 +87,26 @@ if(null !== filter_input(INPUT_POST, 'customer_create_submit')) {
                         <input type="hidden" name="manager_id" value="<?= GetUserId() ?>" />
                         <div class="form-group">
                             <label for="name">Наименование</label>
-                            <input type="text" name="name" class="form-control<?=$name_valid ?>" value="<?= filter_input(INPUT_POST, 'name') ?>" required="required" autocomplete="off" />
+                            <input type="text" name="name" class="form-control<?=$name_valid ?>" value="<?= htmlentities(filter_input(INPUT_POST, 'name')) ?>" required="required" autocomplete="off" />
                             <div class="invalid-feedback">Наименование обязательно</div>
                         </div>
                         <div class="form-group">
                             <label for="person">Основное контактное лицо</label>
-                            <input type="text" name="person" class="form-control" value="<?= filter_input(INPUT_POST, 'person') ?>" autocomplete="off" />
+                            <input type="text" name="person" class="form-control" value="<?= htmlentities(filter_input(INPUT_POST, 'person')) ?>" autocomplete="off" />
                         </div>
                         <div class="d-flex justify-content-between">
                             <div class="form-group w-75 pr-3">
                                 <label for="phone">Телефон</label>
-                                <input type="tel" name="phone" class="form-control" value="<?= filter_input(INPUT_POST, 'phone') ?>" autocomplete="off" />
+                                <input type="tel" name="phone" class="form-control" value="<?= htmlentities(filter_input(INPUT_POST, 'phone')) ?>" autocomplete="off" />
                             </div>
                             <div class="form-group w-25">
                                 <label for="extension">Расширение</label>
-                                <input type="text" name="extension" class="form-control" value="<?= filter_input(INPUT_POST, 'extension') ?>" autocomplete="off" />
+                                <input type="text" name="extension" class="form-control" value="<?= htmlentities(filter_input(INPUT_POST, 'extension')) ?>" autocomplete="off" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email">E-Mail</label>
-                            <input type="email" name="email" class="form-control" value="<?= filter_input(INPUT_POST, 'email') ?>" autocomplete="off" />
+                            <input type="email" name="email" class="form-control" value="<?= htmlentities(filter_input(INPUT_POST, 'email')) ?>" autocomplete="off" />
                             <div class="invalid-feedback">Неправильный формат E-Mail</div>
                         </div>
                         <div class="pt-4">

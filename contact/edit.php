@@ -103,9 +103,9 @@ if($row = $fetcher->Fetch()) {
         $next_date = $row['next_date'];
     }
     
-    $comment = filter_input(INPUT_POST, 'comment');
+    $comment = htmlentities(filter_input(INPUT_POST, 'comment'));
     if(empty($comment)) {
-        $comment = $row['comment'];
+        $comment = htmlentities($row['comment']);
     }
 }
 ?>

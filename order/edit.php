@@ -85,9 +85,9 @@ $sql = "select z.product, z.number, z.price, z.shipment_date, z.contract_date, z
         . "where z.id = $id";
 $fetcher = new Fetcher($sql);
 if($row = $fetcher->Fetch()) {
-    $product = filter_input(INPUT_POST, 'product');
+    $product = htmlentities(filter_input(INPUT_POST, 'product'));
     if(empty($product)) {
-        $product = $row['product'];
+        $product = htmlentities($row['product']);
     }
     
     $number = filter_input(INPUT_POST, 'number');
