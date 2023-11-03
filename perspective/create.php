@@ -36,7 +36,7 @@ if(null !== filter_input(INPUT_POST, 'perspective_create_submit')) {
     if($form_valid) {
         $sql = "insert into perspective (customer_id, date, date_minus, date_plus, film_id, film_variation_id, expenses, film_width, film_length, "
                 . "film_weight, film_price, film_currency, probability) "
-                . "values ($customer_id, '$date', '$date_minus', '$date_plus', $film_variation_id, $expenses, $film_width, $film_length, "
+                . "values ($customer_id, '$date', '$date_minus', '$date_plus', $film_id, $film_variation_id, $expenses, $film_width, $film_length, "
                 . "$film_weight, $film_price, '$film_currency', $probability)";
         $executer = new Executer($sql);
         $error_message = $executer->error;
@@ -64,6 +64,7 @@ if(null !== filter_input(INPUT_POST, 'perspective_create_submit')) {
                 <div class="col-12 col-md-6">
                     <h1>Новое планируемое действие</h1>
                     <form method="post">
+                        <input type="hidden" name="customer_id" value="<?=$id ?>" />
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
@@ -101,7 +102,7 @@ if(null !== filter_input(INPUT_POST, 'perspective_create_submit')) {
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="film_id">Тип плёнки</label>
-                                    <select name="film_id" class="form-control">
+                                    <select name="film_id" id="film_id" class="form-control">
                                         <option value="">...</option>
                                         <?php
                                         $sql = "select id, name from film order by name";
@@ -120,11 +121,68 @@ if(null !== filter_input(INPUT_POST, 'perspective_create_submit')) {
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="film_variation_id">Толщина плёнки</label>
-                                    <select name="film_variation_id" class="form-control">
+                                    <select name="film_variation_id" id="film_variation_id" class="form-control">
                                         <option value="">...</option>
+                                        <?php
+                                        if(null !== filter_input(INPUT_POST, 'film_id')):
+                                        $sql = "select id, thickness, weight from film_variation where film_id = ". filter_input(INPUT_POST, 'film_id');
+                                        $fetcher = new Fetcher($sql);
+                                        while($row = $fetcher->Fetch()):
+                                            $selected = '';
+                                        if(filter_input(INPUT_POST, 'film_variation_id') == ['id']) {
+                                            $selected = " selected='selected'";
+                                        }
+                                        ?>
+                                        <option value="<?=$row['id'] ?>"<?=$selected ?>><?=$row['thickness'].' мкм '.$row['weight'].' г/м<sup>2</sup>' ?></option>
+                                        <?php
+                                        endwhile;
+                                        endif;
+                                        ?>
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="film_width">Ширина плёнки</label>
+                                    <input type="text" name="film_width" value="<?= filter_input(INPUT_POST, 'film_width') ?>" class="form-control int-only" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="film_length">Длина плёнки</label>
+                                    <input type="text" name="film_length" value="<?= filter_input(INPUT_POST, 'film_length') ?>" class="form-control int-only" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="film_weight">Вес плёнки</label>
+                                    <input type="text" name="film_weight" value="<?= filter_input(INPUT_POST, 'film_weight') ?>" class="form-control int-only" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="film_price">Цена плёнки</label>
+                                    <div class="input-group">
+                                        <input type="text" name="film_price" value="<?= filter_input(INPUT_POST, 'film_price') ?>" class="form-control int-only" />
+                                        <div class="input-group-append">
+                                            <select name="film_currency">
+                                                <?php
+                                                foreach(CURRENCIES as $currency):
+                                                    $selected = '';
+                                                if(filter_input(INPUT_POST, 'film_currency')) {
+                                                    $selected = " selected='selected'";
+                                                }
+                                                ?>
+                                                <option value="<?=$currency ?>"<?=$selected ?>><?=CURRENCY_SHORTNAMES[$currency] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-dark w-25" id="perspective_create_submit" name="perspective_create_submit">Создать</button>
                         </div>
                     </form>
                 </div>
@@ -133,5 +191,21 @@ if(null !== filter_input(INPUT_POST, 'perspective_create_submit')) {
         <?php
         include '../include/footer.php';
         ?>
+        <script>
+            $('#film_id').change(function(){
+                if($(this).val() == "") {
+                    $('#film_variation_id').html("<option value=''>...</option>");
+                }
+                else {
+                    $.ajax({ url: "_thickness.php?film_id=" + $(this).val() })
+                            .done(function(data) {
+                                $('#film_variation_id').html(data);
+                            })
+                            .fail(function() {
+                                alert('Ошибка при выборе марки пленки');
+                            });
+                }
+            });
+        </script>
     </body>
 </html>

@@ -25,6 +25,7 @@ if(IsInRole(ROLE_NAMES[ROLE_ADMIN])) {
 // Удаление перспективного планирования
 if(filter_input(INPUT_POST, 'delete_perspective_submit') !== null) {
     $id = filter_input(INPUT_POST, 'id');
+    $customer_id = filter_input(INPUT_POST, 'customer_id');
     
     $sql = "delete from perspective where id = $id";
     $executer = new Executer($sql);
@@ -246,8 +247,9 @@ if($row = $fetcher->Fetch()) {
                         <td><?= empty($row['probability']) ? '' : $row['probability'] ?></td>
                         <td><a href="<?=APPLICATION ?>/perspective/edit.php?id=<?=$row['id'] ?>" class="btn btn-outline-dark"><i class="fas fa-edit"></i></a></td>
                         <td>
-                            <form>
+                            <form method="post">
                                 <input type="hidden" name="id" value="<?=$row['id'] ?>" />
+                                <input type="hidden" name="customer_id" value="<?=$id ?>" />
                                 <button type="submit" name="delete_perspective_submit" class="btn btn-outline-dark" onclick="javascript: return confirm('Действительно удалить?');"><i class="fas fa-trash"></i></button>
                             </form>
                         </td>
