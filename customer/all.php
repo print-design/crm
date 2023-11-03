@@ -90,7 +90,6 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                 <thead>
                     <tr style="border-top: 1px solid #dee2e6; border-left: 1px solid #dee2e6; border-right: 1px solid #dee2e6;">
                         <th>Наименование</th>
-                        <th>Основное контактное лицо</th>
                         <th>Телефон</th>
                         <th>E-Mail</th>
                         <th>Менеджер</th>
@@ -99,7 +98,7 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "select c.id, c.name, c.person, c.phone, c.extension, c.email, u.last_name, u.first_name "
+                    $sql = "select c.id, c.name, c.phone, c.extension, c.email, u.last_name, u.first_name "
                             . "from customer c inner join user u on c.manager_id = u.id ";
                     
                     if(!empty($find) || !empty($user)) {
@@ -121,7 +120,6 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                     ?>
                     <tr style="border-left: 1px solid #dee2e6; border-right: 1px solid #dee2e6;">
                         <td><?=$row['name'] ?></td>
-                        <td><?=$row['person'] ?></td>
                         <td><?=$row['phone'].(empty($row['extension']) ? '' : ' (доб. '.$row['extension'].')') ?></td>
                         <td><?=$row['email'] ?></td>
                         <td><?=$row['last_name'].' '.$row['first_name'] ?></td>

@@ -61,7 +61,6 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                 <thead>
                     <tr style="border-top: 1px solid #dee2e6; border-left: 1px solid #dee2e6; border-right: 1px solid #dee2e6;">
                         <th>Наименование</th>
-                        <th>Основное контактное лицо</th>
                         <th>Телефон</th>
                         <th>E-Mail</th>
                         <th></th>
@@ -69,7 +68,7 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "select id, name, person, phone, extension, email from customer where manager_id = ". GetUserId();
+                    $sql = "select id, name, phone, extension, email from customer where manager_id = ". GetUserId();
                     if(!empty($find)) {
                         $sql .= " and name like '%$find%'";
                     }
@@ -80,7 +79,6 @@ if(!IsInRole(array(ROLE_NAMES[ROLE_ADMIN], ROLE_NAMES[ROLE_MANAGER]))) {
                     ?>
                     <tr style="border-left: 1px solid #dee2e6; border-right: 1px solid #dee2e6;">
                         <td><?=$row['name'] ?></td>
-                        <td><?=$row['person'] ?></td>
                         <td><?=$row['phone'].(empty($row['extension']) ? '' : ' (доб. '.$row['extension'].')') ?></td>
                         <td><?=$row['email'] ?></td>
                         <td><a href="details.php?id=<?=$row['id'] ?>"><img src="../images/icons/vertical-dots.svg" /></a></td>

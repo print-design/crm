@@ -45,7 +45,6 @@ if(empty($id)) {
 
 // Получение объекта
 $name = '';
-$person = '';
 $phone = '';
 $extension = '';
 $email = '';
@@ -53,12 +52,11 @@ $manager_id = 0;
 $last_name = '';
 $first_name = '';
 
-$sql = "select c.name, c.person, c.phone, c.extension, c.email, c.manager_id, u.last_name, u.first_name "
+$sql = "select c.name, c.phone, c.extension, c.email, c.manager_id, u.last_name, u.first_name "
         . "from customer c inner join user u on c.manager_id = u.id where c.id = $id";
 $fetcher = new Fetcher($sql);
 if($row = $fetcher->Fetch()) {
     $name = $row['name'];
-    $person = $row['person'];
     $phone = $row['phone'];
     $extension = $row['extension'];
     $email = $row['email'];
@@ -103,10 +101,6 @@ if($row = $fetcher->Fetch()) {
                         <tr>
                             <th>Менеджер</th>
                             <td><?=$last_name.' '.$first_name ?></td>
-                        </tr>
-                        <tr>
-                            <th>Основное контактное лицо</th>
-                            <td><?=$person ?></td>
                         </tr>
                         <tr>
                             <th>Телефон</th>

@@ -30,7 +30,6 @@ if(null !== filter_input(INPUT_POST, 'customer_edit_submit')) {
         $form_valid = false;
     }
     
-    $person = filter_input(INPUT_POST, 'person');
     $phone = filter_input(INPUT_POST, 'phone');
     $extension = filter_input(INPUT_POST, 'extension');
     $email = filter_input(INPUT_POST, 'email');
@@ -42,7 +41,6 @@ if(null !== filter_input(INPUT_POST, 'customer_edit_submit')) {
     
     if($form_valid) {
         $name = addslashes($name);
-        $person = addslashes($person);
         $phone = addslashes($phone);
         $extension = addslashes($extension);
         $email = addslashes($email);
@@ -56,7 +54,7 @@ if(null !== filter_input(INPUT_POST, 'customer_edit_submit')) {
         }
         
         if(empty($error_message)) {
-            $sql = "update customer set name = '$name', person = '$person', phone = '$phone', extension = '$extension', email = '$email' where id = $id";
+            $sql = "update customer set name = '$name', phone = '$phone', extension = '$extension', email = '$email' where id = $id";
             $executer = new Executer($sql);
             $error_message = $executer->error;
         }
@@ -68,18 +66,13 @@ if(null !== filter_input(INPUT_POST, 'customer_edit_submit')) {
 }
 
 // Получение объекта
-$sql = "select name, person, phone, extension, email from customer where id = $id";
+$sql = "select name, phone, extension, email from customer where id = $id";
 $fetcher = new Fetcher($sql);
 $row = $fetcher->Fetch();
 
 $name = htmlentities(filter_input(INPUT_POST, 'name'));
 if(empty($name)) {
     $name = htmlentities($row['name']);
-}
-
-$person = htmlentities(filter_input(INPUT_POST, 'person'));
-if(empty($person)) {
-    $person = htmlentities($row['person']);
 }
 
 $phone = htmlentities(filter_input(INPUT_POST, 'phone'));
@@ -124,10 +117,6 @@ if(empty($email)) {
                             <label for="name">Наименование</label>
                             <input type="text" name="name" class="form-control<?=$name_valid ?>" value="<?= $name ?>" required="required" autocomplete="off" />
                             <div class="invalid-feedback">Наименование обязательно</div>
-                        </div>
-                        <div class="form-group">
-                            <label for="person">Основное контактное лицо</label>
-                            <input type="text" name="person" class="form-control" value="<?= $person ?>" autocomplete="off" />
                         </div>
                         <div class="d-flex justify-content-between">
                             <div class="form-group w-75 pr-3">

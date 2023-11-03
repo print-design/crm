@@ -22,7 +22,6 @@ if(null !== filter_input(INPUT_POST, 'customer_create_submit')) {
         $form_valid = false;
     }
     
-    $person = filter_input(INPUT_POST, 'person');
     $phone = filter_input(INPUT_POST, 'phone');
     $extension = filter_input(INPUT_POST, 'extension');
     $email = filter_input(INPUT_POST, 'email');
@@ -36,7 +35,6 @@ if(null !== filter_input(INPUT_POST, 'customer_create_submit')) {
     
     if($form_valid) {
         $name = addslashes($name);
-        $person = addslashes($person);
         $phone = addslashes($phone);
         $extension = addslashes($extension);
         $email = addslashes($email);
@@ -50,7 +48,7 @@ if(null !== filter_input(INPUT_POST, 'customer_create_submit')) {
         }
         
         if(empty($error_message)) {
-            $sql = "insert into customer (name, person, phone, extension, email, manager_id) values ('$name', '$person', '$phone', '$extension', '$email', $manager_id)";
+            $sql = "insert into customer (name, phone, extension, email, manager_id) values ('$name', '$phone', '$extension', '$email', $manager_id)";
             $executer = new Executer($sql);
             $error_message = $executer->error;
             $id = $executer->insert_id;
@@ -89,10 +87,6 @@ if(null !== filter_input(INPUT_POST, 'customer_create_submit')) {
                             <label for="name">Наименование</label>
                             <input type="text" name="name" class="form-control<?=$name_valid ?>" value="<?= htmlentities(filter_input(INPUT_POST, 'name')) ?>" required="required" autocomplete="off" />
                             <div class="invalid-feedback">Наименование обязательно</div>
-                        </div>
-                        <div class="form-group">
-                            <label for="person">Основное контактное лицо</label>
-                            <input type="text" name="person" class="form-control" value="<?= htmlentities(filter_input(INPUT_POST, 'person')) ?>" autocomplete="off" />
                         </div>
                         <div class="d-flex justify-content-between">
                             <div class="form-group w-75 pr-3">
